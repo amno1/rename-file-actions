@@ -1,0 +1,31 @@
+* About
+
+I would like to run some actions specifically after I rename a file, for example via C-x C-w in Emacs, but I am not aware of some hook (function) that will be called specifically when file is renamed. It is not hard to add something similar to a hook, so rename-file-actions is my personal solution that introduces a (sort of) hook that runs when the file is renamed. The motivation behind is that I use some auto-insert templates that insert file names in text, and I would like to update those when I rename a file. However, it could be anything, for example delete the old file, or whatever.
+
+* Installation
+
+Copy rename-file-actions.el somewhere in your load-path so Emacs can find it. Alternatively clone to your hard drive and install via M-x package-install-file, or use package-vc-install.
+
+* Usage
+
+To enable "rename file hooks", enable the rename-file-actions mode. For example in init file:
+
+#+begin_src emacs-lisp
+(rename-file-actions +1)
+#+end_src
+
+Add a pair '(major-mode . hook) to the rename-file-mode-alist.
+
+The hook function should take &rest args as the list. The hook vill run in the original buffer, just  *before* the buffer is saved. Args list will contain the name of the target file to which the content is saved.
+
+As an example, there is a simple function in after-rename-elisp.el, I use to update my Emacs Lisp and Common Lisp files, for which I use very similar auto-insert template:
+#+begin_src emacs-lisp
+(add-to-list 'rename-file-mode-alist '(emacs-lisp-mode . on-rename-elisp-library))
+#+end_src
+The function changes text inserted by auto-insert, in which are by default two occurences of the file name itself, and a feature name which is by default the same token as the library name.
+
+* Notes
+
+It is currently just a prototype in alfa state. If anyone would like to test it and experience problems let me know. I have tested it only with Emacs Lisp and Common Lisp in my own Emacs.
+
+
