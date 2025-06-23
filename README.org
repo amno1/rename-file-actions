@@ -16,9 +16,9 @@ To enable "rename file hooks", enable the rename-file-actions mode. For example 
 
 Add a pair '(major-mode . hook) to the rename-file-mode-alist.
 
-The hook function should take &rest args as the list. The hook vill run in the original buffer, just  *before* the buffer is saved. Args list will contain the name of the target file to which the content is saved.
+The hook function should take &rest list as the argument. The hook vill run in the original buffer, just  *before* the buffer is saved. Args list will contain the name of the target file to which the content is saved.
 
-As an example, there is a simple function in after-rename-elisp.el, I use to update my Emacs Lisp and Common Lisp files, for which I use very similar auto-insert template:
+As an example, there is a simple function in on-rename-elisp-library.el, I use to update my Emacs Lisp and Common Lisp files, for which I use very similar auto-insert template:
 #+begin_src emacs-lisp
 (add-to-list 'rename-file-mode-alist '(emacs-lisp-mode . on-rename-elisp-library))
 #+end_src
