@@ -39,11 +39,9 @@ FUNCTION will be called when a file with major MODE is renamed."
 
 (defun rename-file--run (&rest args)
   "Action runner"
-  (catch 'done
-    (dolist (mode-spec rename-file-mode-alist)
-      (when (eq major-mode (car mode-spec))
-        (apply (cdr mode-spec) args)
-        (throw 'done t)))))
+  (dolist (mode-spec rename-file-mode-alist)
+    (when (eq major-mode (car mode-spec))
+      (apply (cdr mode-spec) args))))
 
 ;;;###autoload
 (define-minor-mode rename-file-actions
